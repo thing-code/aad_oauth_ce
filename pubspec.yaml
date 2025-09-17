@@ -1,0 +1,28 @@
+name: aad_oauth_ce
+description: A Flutter OAuth package for performing user authentication against
+  Azure Active Directory OAuth2 v2.0 endpoint.
+version: 1.1.0
+homepage: https://github.com/loonix/aad_oauth_ce
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.13.0" # Because of PopScope at least Flutter 3.13 is required to run aad_oauth >=1.0.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_secure_storage: ^9.0.0
+  webview_flutter: ^4.4.1
+  js: ^0.6.7
+  http: ^1.1.0
+  shared_preferences: ^2.2.1
+  dartz: ^0.10.1
+  equatable: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+    - assets/msalv2.js
