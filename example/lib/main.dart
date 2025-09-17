@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:aad_oauth_ce/aad_oauth.dart';
 import 'package:aad_oauth_ce/model/config.dart';
 import 'package:flutter/foundation.dart';
