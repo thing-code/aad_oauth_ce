@@ -1,27 +1,27 @@
 # Changelog
 
-## [Unreleased]
+## [1.1.0] - 2025-09-17 - Community Edition
 
-## [1.1.0] - 20250917
+Since the original `aad_oauth` package is no longer maintained, this fork `aad_oauth_ce` (Community Edition) has been created to continue its development and maintenance. This version includes several improvements and new features, particularly around refresh token handling and package migration.
 
-### 🔧 Refresh Token Improvements
+### Refresh Token Improvements
 - **Refresh Token Access** - Plugin now exposes refresh tokens that were previously hidden
 - **Proper Error Handling** - Failed refreshes now return actual failures instead of "successful" null tokens
 - **Consistent API** - All implementations (mobile, mock) follow the same interface
 - **Better Debugging** - Clear distinction between success and failure cases
 
-### 📝 Files Modified
+### Files Modified
 - `aad_oauth.dart` - Added public `getRefreshToken()` method
 - `core_oauth.dart` - Added abstract method definition
 - `mobile_oauth.dart` - Added implementation + fixed refresh logic
 - `mock_oauth.dart` - Added mock implementation
 
-### 🚀 Package Migration
+### Package Migration
 - **Package Renamed** - Migrated from `aad_oauth` to `aad_oauth_ce` for better maintenance
 - **Backward Compatibility** - Simple migration path requiring only import statement updates
 - **Updated Documentation** - Added comprehensive migration guide
 
-## [1.0.1] - 20230215
+## [1.0.1] - 20230215 - This is the last version of the original package
 
 - Optionally avoid prompting popup on web logout https://github.com/Earlybyte/aad_oauth/pull/277 (by @phildupuis)
 - Fix/inline linter rules to prevent conflict https://github.com/Earlybyte/aad_oauth/pull/279 (by @mikedigit)
