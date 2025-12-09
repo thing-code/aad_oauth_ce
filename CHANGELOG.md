@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.0] - 2025-12-09
+
+- **Fix iOS Crash**: Upgraded `webview_flutter` to `^4.13.0` which resolves the native assertion failure on iOS (Race Condition in `FWFWebViewHostApi`).
+- **Dependency Updates**:
+  - `flutter_secure_storage`: `^9.2.4`
+  - `http`: `^1.6.0`
+  - `shared_preferences`: `^2.5.4`
+  - `equatable`: `^2.0.7`
+
 ## [1.1.0] - 2025-09-17 - Community Edition
 
 Since the original `aad_oauth` package is no longer maintained, this fork `aad_oauth_ce` (Community Edition) has been created to continue its development and maintenance. This version includes several improvements and new features, particularly around refresh token handling and package migration.
