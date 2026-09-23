@@ -19,8 +19,8 @@ class RequestCode {
         _authorizationRequest = AuthorizationRequest(config),
         _redirectUriHost = Uri.parse(config.redirectUri).host {
     _navigationDelegate = NavigationDelegate(
-      onNavigationRequest: _onNavigationRequest,
-    );
+        onNavigationRequest: _onNavigationRequest,
+        onPageFinished: config.onPageFinished);
     _cookieManager = WebViewCookieManager();
   }
 
@@ -32,17 +32,9 @@ class RequestCode {
     final controller = WebViewController();
     await controller.setNavigationDelegate(_navigationDelegate);
     await controller.setJavaScriptMode(JavaScriptMode.unrestricted);
-
     await controller.setBackgroundColor(Colors.transparent);
     await controller.setUserAgent(_config.userAgent);
     await controller.loadRequest(launchUri);
-    if (_config.onPageFinished != null) {
-      await controller.setNavigationDelegate(
-        NavigationDelegate(
-          onPageFinished: _config.onPageFinished,
-        ),
-      );
-    }
 
     final webView = WebViewWidget(controller: controller);
 
