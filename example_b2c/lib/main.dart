@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:azure_oauth/aad_oauth.dart';
+import 'package:azure_oauth/azure_oauth.dart';
 import 'package:azure_oauth/model/config.dart';
 import 'package:flutter/material.dart';
 
