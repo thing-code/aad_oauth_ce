@@ -43,7 +43,7 @@ Afterwards you must create a navigatorKey and initialize the library as follow:
     postLogoutRedirectUri: 'http://your_base_url/logout', //optional
   );
 
-  final AadOAuth oauth = new AadOAuth(config);
+  final AzureOauthSSO oauth = new AzureOauthSSO(config);
 ```
 
 This allows you to pass in an tenant ID, client ID, scope and redirect url.
@@ -184,10 +184,10 @@ import 'package:aad_oauth/model/token.dart';
 import 'package:aad_oauth/model/failure.dart';
 
 // ✅ New imports (use these instead)
-import 'package:azure_ad_oauth_mrt/aad_oauth.dart';
-import 'package:azure_ad_oauth_mrt/model/config.dart';
-import 'package:azure_ad_oauth_mrt/model/token.dart';
-import 'package:azure_ad_oauth_mrt/model/failure.dart';
+import 'package:azure_oauth/aad_oauth.dart';
+import 'package:azure_oauth/model/config.dart';
+import 'package:azure_oauth/model/token.dart';
+import 'package:azure_oauth/model/failure.dart';
 ```
 
 ### Step 3: Update Web Assets (Web Applications Only)
@@ -213,7 +213,7 @@ flutter pub get
 
 ### What Stays the Same
 
-✅ **All class names remain identical**: `AadOAuth`, `Config`, `Token`, etc.  
+✅ **All class names remain identical**: `AzureOauthSSO`, `Config`, `Token`, etc.  
 ✅ **All method signatures are unchanged**: `login()`, `logout()`, `getAccessToken()`, etc.  
 ✅ **All configuration options work the same way**  
 ✅ **All functionality is preserved** - no breaking changes to the public API  
@@ -232,7 +232,7 @@ dependencies:
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
 
-final AadOAuth oauth = AadOAuth(config);
+final AzureOauthSSO oauth = AzureOauthSSO(config);
 ```
 
 **After (aad_oauth_ce):**
@@ -242,10 +242,10 @@ dependencies:
   aad_oauth_ce: "^1.1.0"
 
 // main.dart  
-import 'package:azure_ad_oauth_mrt/aad_oauth.dart';
-import 'package:azure_ad_oauth_mrt/model/config.dart';
+import 'package:azure_oauth/aad_oauth.dart';
+import 'package:azure_oauth/model/config.dart';
 
-final AadOAuth oauth = AadOAuth(config); // Same code!
+final AzureOauthSSO oauth = AzureOauthSSO(config); // Same code!
 ```
 
 The migration is designed to be as seamless as possible - you only need to change package references and imports, not your actual implementation code!

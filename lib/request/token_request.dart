@@ -1,4 +1,4 @@
-import 'package:azure_ad_oauth_mrt/model/config.dart';
+import 'package:azure_oauth/model/config.dart';
 
 class TokenRequestDetails {
   final String url;

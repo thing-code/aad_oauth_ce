@@ -8,7 +8,7 @@ environment:
   sdk: ">=3.3.0 <4.0.0"
 
 dependencies:
-  azure_ad_oauth_mrt:
+  azure_oauth:
     path: ../
   flutter:
     sdk: flutter

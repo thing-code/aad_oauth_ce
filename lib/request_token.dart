@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:azure_ad_oauth_mrt/model/failure.dart';
+import 'package:azure_oauth/model/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
 

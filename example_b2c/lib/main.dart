@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:azure_ad_oauth_mrt/aad_oauth.dart';
-import 'package:azure_ad_oauth_mrt/model/config.dart';
+import 'package:azure_oauth/aad_oauth.dart';
+import 'package:azure_oauth/model/config.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -92,9 +92,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   //You can have as many B2C flows as you want
 
-  final AadOAuth oauthB2Ca = AadOAuth(configB2Ca);
-  final AadOAuth oauthB2Cb = AadOAuth(configB2Cb);
-  final AadOAuth oauthB2Cc = AadOAuth(configB2Cc);
+  final AzureOauthSSO oauthB2Ca = AzureOauthSSO(configB2Ca);
+  final AzureOauthSSO oauthB2Cb = AzureOauthSSO(configB2Cb);
+  final AzureOauthSSO oauthB2Cc = AzureOauthSSO(configB2Cc);
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
     showDialog(context: context, builder: (BuildContext context) => alert);
   }
 
-  void login(AadOAuth oAuth) async {
+  void login(AzureOauthSSO oAuth) async {
     final result = await oAuth.login();
     result.fold(
       (l) => showError(l.toString()),
@@ -208,7 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void hasCachedAccountInformation(AadOAuth oAuth) async {
+  void hasCachedAccountInformation(AzureOauthSSO oAuth) async {
     var hasCachedAccountInformation = await oAuth.hasCachedAccountInformation;
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
@@ -219,7 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void logout(AadOAuth oAuth) async {
+  void logout(AzureOauthSSO oAuth) async {
     await oAuth.logout();
     showMessage('Logged out');
   }

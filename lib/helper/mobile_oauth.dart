@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:azure_ad_oauth_mrt/helper/core_oauth.dart';
-import 'package:azure_ad_oauth_mrt/model/config.dart';
-import 'package:azure_ad_oauth_mrt/model/failure.dart';
-import 'package:azure_ad_oauth_mrt/model/token.dart';
+import 'package:azure_oauth/helper/core_oauth.dart';
+import 'package:azure_oauth/model/config.dart';
+import 'package:azure_oauth/model/failure.dart';
+import 'package:azure_oauth/model/token.dart';
 import 'package:dartz/dartz.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

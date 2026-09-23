@@ -1,4 +1,4 @@
-name: azure_ad_oauth_mrt
+name: azure_oauth
 description: A Flutter OAuth package for performing user authentication against
   Azure Active Directory OAuth2 v2.0 endpoint.
 version: 2.0.0

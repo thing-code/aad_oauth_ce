@@ -12,11 +12,11 @@ import 'dart:convert';
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 
-import 'package:azure_ad_oauth_mrt/helper/core_oauth.dart';
-import 'package:azure_ad_oauth_mrt/model/config.dart';
-import 'package:azure_ad_oauth_mrt/model/failure.dart';
-import 'package:azure_ad_oauth_mrt/model/msalconfig.dart';
-import 'package:azure_ad_oauth_mrt/model/token.dart';
+import 'package:azure_oauth/helper/core_oauth.dart';
+import 'package:azure_oauth/model/config.dart';
+import 'package:azure_oauth/model/failure.dart';
+import 'package:azure_oauth/model/msalconfig.dart';
+import 'package:azure_oauth/model/token.dart';
 import 'package:dartz/dartz.dart';
 
 @JS('aadOauth.init')

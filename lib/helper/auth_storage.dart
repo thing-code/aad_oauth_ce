@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert' show jsonEncode, jsonDecode;
 
-import 'package:azure_ad_oauth_mrt/model/token.dart';
+import 'package:azure_oauth/model/token.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthStorage {

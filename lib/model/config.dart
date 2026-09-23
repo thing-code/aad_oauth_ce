@@ -1,4 +1,4 @@
-import 'package:azure_ad_oauth_mrt/model/cache_location.dart';
+import 'package:azure_oauth/model/cache_location.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';

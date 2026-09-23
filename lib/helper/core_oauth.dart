@@ -1,11 +1,11 @@
-import 'package:azure_ad_oauth_mrt/helper/choose_oauth.dart'
+import 'package:azure_oauth/helper/choose_oauth.dart'
     // ignore: uri_does_not_exist
-    if (dart.library.io) 'package:azure_ad_oauth_mrt/helper/mobile_oauth.dart'
+    if (dart.library.io) 'package:azure_oauth/helper/mobile_oauth.dart'
     // ignore: uri_does_not_exist
-    if (dart.library.js_interop) 'package:azure_ad_oauth_mrt/helper/web_oauth.dart';
-import 'package:azure_ad_oauth_mrt/model/config.dart';
-import 'package:azure_ad_oauth_mrt/model/failure.dart';
-import 'package:azure_ad_oauth_mrt/model/token.dart';
+    if (dart.library.js_interop) 'package:azure_oauth/helper/web_oauth.dart';
+import 'package:azure_oauth/model/config.dart';
+import 'package:azure_oauth/model/failure.dart';
+import 'package:azure_oauth/model/token.dart';
 import 'package:dartz/dartz.dart';
 
 class CoreOAuth {

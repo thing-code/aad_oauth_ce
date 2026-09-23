@@ -1,5 +1,5 @@
-import 'package:azure_ad_oauth_mrt/aad_oauth.dart';
-import 'package:azure_ad_oauth_mrt/model/config.dart';
+import 'package:azure_oauth/aad_oauth.dart';
+import 'package:azure_oauth/model/config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
       title: Text('AAD OAuth Demo'),
     ),
   );
-  final AadOAuth oauth = AadOAuth(config);
+  final AzureOauthSSO oauth = AzureOauthSSO(config);
 
   @override
   Widget build(BuildContext context) {
