@@ -170,14 +170,19 @@ class WebOAuth extends CoreOAuth {
 }
 
 /// Best-effort conversion of a JS callback error into a readable message.
+///
+/// Uses [JSAny.isA] (instead of `is`) so the checks stay consistent
+/// between the JS and WASM compilers.
 String _describeJsError(JSAny? error) {
   if (error == null) return 'unknown error';
-  if (error is JSString) return error.toDart;
-  if (error is JSNumber) return error.toDartDouble.toString();
-  if (error is JSBoolean) return error.toDart.toString();
-  if (error is JSObject) {
-    final message = error.getProperty('message'.toJS);
-    if (message is JSString) return message.toDart;
+  if (error.isA<JSString>()) return (error as JSString).toDart;
+  if (error.isA<JSNumber>()) return (error as JSNumber).toDartDouble.toString();
+  if (error.isA<JSBoolean>()) return (error as JSBoolean).toDart.toString();
+  if (error.isA<JSObject>()) {
+    final message = (error as JSObject).getProperty('message'.toJS);
+    if (message != null && message.isA<JSString>()) {
+      return (message as JSString).toDart;
+    }
   }
   return error.toString();
 }
