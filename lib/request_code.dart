@@ -61,7 +61,7 @@ class RequestCode {
           appBar: _config.appBar,
           body: PopScope(
             canPop: false,
-            onPopInvoked: (bool didPop) async {
+            onPopInvokedWithResult: (didPop, result) async {
               if (didPop) return;
               if (await controller.canGoBack()) {
                 await controller.goBack();

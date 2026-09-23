@@ -1,31 +1,44 @@
-import 'package:aad_oauth_ce/helper/choose_oauth.dart'
+import 'package:azure_ad_oauth_mrt/helper/choose_oauth.dart'
     // ignore: uri_does_not_exist
-    if (dart.library.io) 'package:aad_oauth_ce/helper/mobile_oauth.dart'
+    if (dart.library.io) 'package:azure_ad_oauth_mrt/helper/mobile_oauth.dart'
     // ignore: uri_does_not_exist
-    if (dart.library.html) 'package:aad_oauth_ce/helper/web_oauth.dart';
-import 'package:aad_oauth_ce/model/config.dart';
-import 'package:aad_oauth_ce/model/failure.dart';
-import 'package:aad_oauth_ce/model/token.dart';
+    if (dart.library.js_interop) 'package:azure_ad_oauth_mrt/helper/web_oauth.dart';
+import 'package:azure_ad_oauth_mrt/model/config.dart';
+import 'package:azure_ad_oauth_mrt/model/failure.dart';
+import 'package:azure_ad_oauth_mrt/model/token.dart';
 import 'package:dartz/dartz.dart';
 
 class CoreOAuth {
   CoreOAuth();
 
-  Future<Either<Failure, Token>> login({bool refreshIfAvailable = false}) async => throw UnsupportedFailure(errorType: ErrorType.unsupported, message: 'Unsupported login');
+  Future<Either<Failure, Token>> login(
+          {bool refreshIfAvailable = false}) async =>
+      throw UnsupportedFailure(
+          errorType: ErrorType.unsupported, message: 'Unsupported login');
 
-  Future<Either<Failure, Token>> refreshToken() async => throw UnsupportedFailure(errorType: ErrorType.unsupported, message: 'Unsupported silentlyLogin');
+  Future<Either<Failure, Token>> refreshToken() async =>
+      throw UnsupportedFailure(
+          errorType: ErrorType.unsupported,
+          message: 'Unsupported silentlyLogin');
 
-  Future<void> logout({bool showPopup = true, bool clearCookies = true}) async => throw UnsupportedFailure(errorType: ErrorType.unsupported, message: 'Unsupported logout');
+  Future<void> logout(
+          {bool showPopup = true, bool clearCookies = true}) async =>
+      throw UnsupportedFailure(
+          errorType: ErrorType.unsupported, message: 'Unsupported logout');
 
   Future<bool> get hasCachedAccountInformation async => false;
 
-  Future<String?> getAccessToken() async => throw UnsupportedFailure(errorType: ErrorType.unsupported, message: 'Unsupported getAccessToken');
+  Future<String?> getAccessToken() async => throw UnsupportedFailure(
+      errorType: ErrorType.unsupported, message: 'Unsupported getAccessToken');
 
-  Future<String?> getRefreshToken() async => throw UnsupportedFailure(errorType: ErrorType.unsupported, message: 'Unsupported getRefreshToken');
+  Future<String?> getRefreshToken() async => throw UnsupportedFailure(
+      errorType: ErrorType.unsupported, message: 'Unsupported getRefreshToken');
 
-  Future<String?> getIdToken() async => throw UnsupportedFailure(errorType: ErrorType.unsupported, message: 'Unsupported getIdToken');
+  Future<String?> getIdToken() async => throw UnsupportedFailure(
+      errorType: ErrorType.unsupported, message: 'Unsupported getIdToken');
 
-  factory CoreOAuth.fromConfig(Config config) => config.isStub ? MockCoreOAuth() : getOAuthConfig(config);
+  factory CoreOAuth.fromConfig(Config config) =>
+      config.isStub ? MockCoreOAuth() : getOAuthConfig(config);
 }
 
 /// Mock class for testing.
@@ -35,10 +48,13 @@ class MockCoreOAuth extends CoreOAuth {
   final String mockIdToken = 'ID_TOKEN';
 
   @override
-  Future<Either<Failure, Token>> login({bool refreshIfAvailable = false}) async => Right(Token(accessToken: mockAccessToken));
+  Future<Either<Failure, Token>> login(
+          {bool refreshIfAvailable = false}) async =>
+      Right(Token(accessToken: mockAccessToken));
 
   @override
-  Future<void> logout({bool showPopup = true, bool clearCookies = true}) async {}
+  Future<void> logout(
+      {bool showPopup = true, bool clearCookies = true}) async {}
 
   @override
   Future<bool> get hasCachedAccountInformation async => true;

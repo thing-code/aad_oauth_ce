@@ -1,4 +1,4 @@
-import 'package:aad_oauth_ce/model/config.dart';
+import 'package:azure_ad_oauth_mrt/model/config.dart';
 
 class TokenRefreshRequestDetails {
   final String url;
@@ -7,7 +7,13 @@ class TokenRefreshRequestDetails {
 
   TokenRefreshRequestDetails(Config config, String refreshToken)
       : url = config.tokenUrl,
-        params = {'client_id': config.clientId, 'scope': config.scope, 'redirect_uri': config.redirectUri, 'grant_type': 'refresh_token', 'refresh_token': refreshToken},
+        params = {
+          'client_id': config.clientId,
+          'scope': config.scope,
+          'redirect_uri': config.redirectUri,
+          'grant_type': 'refresh_token',
+          'refresh_token': refreshToken
+        },
         headers = {
           'Accept': 'application/json',
           'Content-Type': Config.contentType,

@@ -1,4 +1,4 @@
-import 'package:aad_oauth_ce/model/cache_location.dart';
+import 'package:azure_ad_oauth_mrt/model/cache_location.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -232,9 +232,11 @@ class Config {
                 : 'https://login.microsoftonline.com/$tenant/oauth2/v2.0/authorize'),
         tokenUrl = customTokenUrl ??
             (isB2C
-                ? (customDomainUrlWithTenantId == null ? 'https://$tenant.b2clogin.com/$tenant.onmicrosoft.com/$policy/oauth2/v2.0/token' : '$customDomainUrlWithTenantId/$policy/oauth2/v2.0/token')
+                ? (customDomainUrlWithTenantId == null
+                    ? 'https://$tenant.b2clogin.com/$tenant.onmicrosoft.com/$policy/oauth2/v2.0/token'
+                    : '$customDomainUrlWithTenantId/$policy/oauth2/v2.0/token')
                 : 'https://login.microsoftonline.com/$tenant/oauth2/v2.0/token'),
-        aOptions = aOptions ?? AndroidOptions(encryptedSharedPreferences: true),
+        aOptions = aOptions ?? AndroidOptions(),
         cacheLocation = cacheLocation ?? CacheLocation.localStorage,
         redirectUri = redirectUri ?? getDefaultRedirectUri();
 
@@ -292,9 +294,11 @@ class Config {
       clientSecret: clientSecret ?? this.clientSecret,
       resource: resource ?? this.resource,
       isB2C: isB2C ?? this.isB2C,
-      customAuthorizationUrl: customAuthorizationUrl ?? this.customAuthorizationUrl,
+      customAuthorizationUrl:
+          customAuthorizationUrl ?? this.customAuthorizationUrl,
       customTokenUrl: customTokenUrl ?? this.customTokenUrl,
-      customDomainUrlWithTenantId: customDomainUrlWithTenantId ?? this.customDomainUrlWithTenantId,
+      customDomainUrlWithTenantId:
+          customDomainUrlWithTenantId ?? this.customDomainUrlWithTenantId,
       loginHint: loginHint ?? this.loginHint,
       domainHint: domainHint ?? this.domainHint,
       codeVerifier: codeVerifier ?? this.codeVerifier,
@@ -306,7 +310,8 @@ class Config {
       navigatorKey: navigatorKey ?? this.navigatorKey,
       origin: origin ?? this.origin,
       customParameters: customParameters ?? this.customParameters,
-      postLogoutRedirectUri: postLogoutRedirectUri ?? this.postLogoutRedirectUri,
+      postLogoutRedirectUri:
+          postLogoutRedirectUri ?? this.postLogoutRedirectUri,
       appBar: appBar ?? this.appBar,
       onPageFinished: onPageFinished ?? this.onPageFinished,
     );

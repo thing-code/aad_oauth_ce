@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:aad_oauth_ce/model/token.dart';
 import 'dart:convert' show jsonEncode, jsonDecode;
+
+import 'package:azure_ad_oauth_mrt/model/token.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthStorage {
@@ -8,7 +9,8 @@ class AuthStorage {
   final String _tokenIdentifier;
   final Token emptyToken = Token();
 
-  AuthStorage({String tokenIdentifier = 'Token', required AndroidOptions aOptions})
+  AuthStorage(
+      {String tokenIdentifier = 'Token', required AndroidOptions aOptions})
       : _tokenIdentifier = tokenIdentifier,
         _secureStorage = FlutterSecureStorage(aOptions: aOptions);
 
@@ -23,6 +25,7 @@ class AuthStorage {
     if (json == null) return emptyToken as FutureOr<T>;
     try {
       var data = jsonDecode(json);
+      // ignore: unawaited_return_in_try_block
       return _getTokenFromMap<T>(data) as FutureOr<T>;
     } catch (exception) {
       print(exception);
@@ -30,7 +33,8 @@ class AuthStorage {
     }
   }
 
-  Token _getTokenFromMap<T extends Token>(Map<String, dynamic> data) => Token.fromJson(data);
+  Token _getTokenFromMap<T extends Token>(Map<String, dynamic> data) =>
+      Token.fromJson(data);
 
   Future clear() async {
     await _secureStorage.delete(key: _tokenIdentifier);

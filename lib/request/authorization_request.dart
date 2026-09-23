@@ -1,4 +1,4 @@
-import 'package:aad_oauth_ce/model/config.dart';
+import 'package:azure_ad_oauth_mrt/model/config.dart';
 
 class AuthorizationRequest {
   final String url;
@@ -7,7 +7,8 @@ class AuthorizationRequest {
   final bool fullScreen;
   final bool clearCookies;
 
-  AuthorizationRequest(Config config, {this.fullScreen = true, this.clearCookies = false})
+  AuthorizationRequest(Config config,
+      {this.fullScreen = true, this.clearCookies = false})
       : url = config.authorizationUrl,
         redirectUrl = config.redirectUri,
         parameters = {
@@ -44,7 +45,8 @@ class AuthorizationRequest {
     }
 
     if (config.codeChallengeMethod != null) {
-      parameters.putIfAbsent('code_challenge_method', () => config.codeChallengeMethod!);
+      parameters.putIfAbsent(
+          'code_challenge_method', () => config.codeChallengeMethod!);
     }
 
     if (config.isB2C) {

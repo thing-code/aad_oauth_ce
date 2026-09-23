@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:aad_oauth_ce/aad_oauth.dart';
-import 'package:aad_oauth_ce/model/config.dart';
+import 'package:azure_ad_oauth_mrt/aad_oauth.dart';
+import 'package:azure_ad_oauth_mrt/model/config.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -203,7 +203,8 @@ class _MyHomePageState extends State<MyHomePage> {
     var accessToken = await oAuth.getAccessToken();
     if (accessToken != null) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(accessToken)));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(accessToken)));
     }
   }
 
@@ -212,7 +213,8 @@ class _MyHomePageState extends State<MyHomePage> {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('HasCachedAccountInformation: $hasCachedAccountInformation'),
+        content:
+            Text('HasCachedAccountInformation: $hasCachedAccountInformation'),
       ),
     );
   }

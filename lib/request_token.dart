@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:aad_oauth_ce/model/failure.dart';
+import 'package:azure_ad_oauth_mrt/model/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
 
@@ -17,15 +17,20 @@ class RequestToken {
 
   Future<Either<Failure, Token>> requestToken(String code) async {
     final tokenRequest = TokenRequestDetails(config, code);
-    return await _sendTokenRequest(tokenRequest.url, tokenRequest.params, tokenRequest.headers);
+    return await _sendTokenRequest(
+        tokenRequest.url, tokenRequest.params, tokenRequest.headers);
   }
 
-  Future<Either<Failure, Token>> requestRefreshToken(String refreshToken) async {
-    final tokenRefreshRequest = TokenRefreshRequestDetails(config, refreshToken);
-    return await _sendTokenRequest(tokenRefreshRequest.url, tokenRefreshRequest.params, tokenRefreshRequest.headers);
+  Future<Either<Failure, Token>> requestRefreshToken(
+      String refreshToken) async {
+    final tokenRefreshRequest =
+        TokenRefreshRequestDetails(config, refreshToken);
+    return await _sendTokenRequest(tokenRefreshRequest.url,
+        tokenRefreshRequest.params, tokenRefreshRequest.headers);
   }
 
-  Future<Either<Failure, Token>> _sendTokenRequest(String url, Map<String, String> params, Map<String, String> headers) async {
+  Future<Either<Failure, Token>> _sendTokenRequest(String url,
+      Map<String, String> params, Map<String, String> headers) async {
     try {
       var response = await post(Uri.parse(url), body: params, headers: headers);
       final tokenJson = json.decode(response.body);
@@ -33,9 +38,12 @@ class RequestToken {
         var token = Token.fromJson(tokenJson);
         return Right(token);
       }
-      return Left(RequestFailure(errorType: ErrorType.invalidJson, message: 'Token json is invalid'));
+      return Left(RequestFailure(
+          errorType: ErrorType.invalidJson, message: 'Token json is invalid'));
     } catch (e) {
-      return Left(RequestFailure(errorType: ErrorType.invalidJson, message: 'Token json is invalid: ${e.toString()}'));
+      return Left(RequestFailure(
+          errorType: ErrorType.invalidJson,
+          message: 'Token json is invalid: ${e.toString()}'));
     }
   }
 }

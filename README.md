@@ -184,10 +184,10 @@ import 'package:aad_oauth/model/token.dart';
 import 'package:aad_oauth/model/failure.dart';
 
 // ✅ New imports (use these instead)
-import 'package:aad_oauth_ce/aad_oauth.dart';
-import 'package:aad_oauth_ce/model/config.dart';
-import 'package:aad_oauth_ce/model/token.dart';
-import 'package:aad_oauth_ce/model/failure.dart';
+import 'package:azure_ad_oauth_mrt/aad_oauth.dart';
+import 'package:azure_ad_oauth_mrt/model/config.dart';
+import 'package:azure_ad_oauth_mrt/model/token.dart';
+import 'package:azure_ad_oauth_mrt/model/failure.dart';
 ```
 
 ### Step 3: Update Web Assets (Web Applications Only)
@@ -242,8 +242,8 @@ dependencies:
   aad_oauth_ce: "^1.1.0"
 
 // main.dart  
-import 'package:aad_oauth_ce/aad_oauth.dart';
-import 'package:aad_oauth_ce/model/config.dart';
+import 'package:azure_ad_oauth_mrt/aad_oauth.dart';
+import 'package:azure_ad_oauth_mrt/model/config.dart';
 
 final AadOAuth oauth = AadOAuth(config); // Same code!
 ```

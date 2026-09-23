@@ -1,51 +1,55 @@
-/// Microsoft identity platform authentication library.
-/// @nodoc
-@JS('aadOauth')
-library msauth;
+/// Microsoft identity platform authentication library (web implementation).
+///
+/// Calls into the `aadOauth` JavaScript object defined in
+/// `assets/msalv2.js` (loaded via `web/index.html`) using the static
+/// `dart:js_interop` API. This file is only compiled for web through the
+/// conditional import in `core_oauth.dart`, so it has no effect on
+/// Android/iOS builds.
+library;
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
-import 'package:aad_oauth_ce/helper/core_oauth.dart';
-import 'package:aad_oauth_ce/model/config.dart';
-import 'package:aad_oauth_ce/model/failure.dart';
-import 'package:aad_oauth_ce/model/msalconfig.dart';
-import 'package:aad_oauth_ce/model/token.dart';
+import 'package:azure_ad_oauth_mrt/helper/core_oauth.dart';
+import 'package:azure_ad_oauth_mrt/model/config.dart';
+import 'package:azure_ad_oauth_mrt/model/failure.dart';
+import 'package:azure_ad_oauth_mrt/model/msalconfig.dart';
+import 'package:azure_ad_oauth_mrt/model/token.dart';
 import 'package:dartz/dartz.dart';
-import 'package:js/js.dart';
-import 'package:js/js_util.dart';
 
-@JS('init')
+@JS('aadOauth.init')
 external void jsInit(MsalConfig config);
 
-@JS('login')
+@JS('aadOauth.login')
 external void jsLogin(
-  bool refreshIfAvailable,
-  bool useRedirect,
-  void Function(dynamic) onSuccess,
-  void Function(dynamic) onError,
+  JSBoolean refreshIfAvailable,
+  JSBoolean useRedirect,
+  JSFunction onSuccess,
+  JSFunction onError,
 );
 
-@JS('logout')
+@JS('aadOauth.logout')
 external void jsLogout(
-  void Function() onSuccess,
-  void Function(dynamic) onError,
-  bool showPopup,
+  JSFunction onSuccess,
+  JSFunction onError,
+  JSBoolean showPopup,
 );
 
-@JS('getAccessToken')
-external Object jsGetAccessToken();
+@JS('aadOauth.getAccessToken')
+external JSPromise<JSAny?> jsGetAccessToken();
 
-@JS('getIdToken')
-external Object jsGetIdToken();
+@JS('aadOauth.getIdToken')
+external JSPromise<JSAny?> jsGetIdToken();
 
-@JS('hasCachedAccountInformation')
-external bool jsHasCachedAccountInformation();
+@JS('aadOauth.hasCachedAccountInformation')
+external JSBoolean jsHasCachedAccountInformation();
 
-@JS('refreshToken')
+@JS('aadOauth.refreshToken')
 external void jsRefreshToken(
-  void Function(dynamic) onSuccess,
-  void Function(dynamic) onError,
+  JSFunction onSuccess,
+  JSFunction onError,
 );
 
 class WebOAuth extends CoreOAuth {
@@ -82,29 +86,39 @@ class WebOAuth extends CoreOAuth {
 
   @override
   Future<String?> getAccessToken() async {
-    return promiseToFuture(jsGetAccessToken());
+    final result = await jsGetAccessToken().toDart;
+    return (result as JSString?)?.toDart;
   }
 
   @override
   Future<String?> getIdToken() async {
-    return promiseToFuture(jsGetIdToken());
+    final result = await jsGetIdToken().toDart;
+    return (result as JSString?)?.toDart;
   }
 
   @override
-  Future<bool> get hasCachedAccountInformation => Future<bool>.value(jsHasCachedAccountInformation());
+  Future<bool> get hasCachedAccountInformation async =>
+      jsHasCachedAccountInformation().toDart;
 
   @override
-  Future<Either<Failure, Token>> login({bool refreshIfAvailable = false}) async {
+  Future<Either<Failure, Token>> login(
+      {bool refreshIfAvailable = false}) async {
     final completer = Completer<Either<Failure, Token>>();
 
     jsLogin(
-      refreshIfAvailable,
-      config.webUseRedirect,
-      allowInterop((value) => completer.complete(Right(Token(accessToken: value)))),
-      allowInterop((error) => completer.complete(Left(AadOauthFailure(
-            errorType: ErrorType.accessDeniedOrAuthenticationCanceled,
-            message: 'Access denied or authentication canceled. Error: ${error.toString()}',
-          )))),
+      refreshIfAvailable.toJS,
+      config.webUseRedirect.toJS,
+      ((JSAny? value) {
+        final accessToken = (value as JSString?)?.toDart;
+        completer.complete(Right(Token(accessToken: accessToken)));
+      }).toJS,
+      ((JSAny? error) {
+        completer.complete(Left(AadOauthFailure(
+          errorType: ErrorType.accessDeniedOrAuthenticationCanceled,
+          message:
+              'Access denied or authentication canceled. Error: ${_describeJsError(error)}',
+        )));
+      }).toJS,
     );
 
     return completer.future;
@@ -115,28 +129,57 @@ class WebOAuth extends CoreOAuth {
     final completer = Completer<Either<Failure, Token>>();
 
     jsRefreshToken(
-      allowInterop((value) => completer.complete(Right(Token(accessToken: value)))),
-      allowInterop((error) => completer.complete(Left(AadOauthFailure(
-            errorType: ErrorType.accessDeniedOrAuthenticationCanceled,
-            message: 'Access denied or authentication canceled. Error: ${error.toString()}',
-          )))),
+      ((JSAny? value) {
+        final accessToken = (value as JSString?)?.toDart;
+        completer.complete(Right(Token(accessToken: accessToken)));
+      }).toJS,
+      ((JSAny? error) {
+        completer.complete(Left(AadOauthFailure(
+          errorType: ErrorType.accessDeniedOrAuthenticationCanceled,
+          message:
+              'Access denied or authentication canceled. Error: ${_describeJsError(error)}',
+        )));
+      }).toJS,
     );
 
     return completer.future;
   }
 
   @override
+  Future<String?> getRefreshToken() async => throw UnsupportedFailure(
+      errorType: ErrorType.unsupported,
+      message:
+          'Refresh token is not exposed on web; it is managed internally by MSAL.');
+
+  @override
   Future<void> logout({bool showPopup = true, bool clearCookies = true}) async {
     final completer = Completer<void>();
 
     jsLogout(
-      allowInterop(completer.complete),
-      allowInterop((error) => completer.completeError(error)),
-      showPopup,
+      ((JSAny? _) {
+        completer.complete();
+      }).toJS,
+      ((JSAny? error) {
+        completer.completeError(_describeJsError(error));
+      }).toJS,
+      showPopup.toJS,
     );
 
     return completer.future;
   }
+}
+
+/// Best-effort conversion of a JS callback error into a readable message.
+String _describeJsError(JSAny? error) {
+  if (error == null) return 'unknown error';
+  if (error is JSString) return error.toDart;
+  if (error is JSNumber) return error.toDartDouble.toString();
+  if (error is JSBoolean) return error.toDart.toString();
+  if (error is JSObject) {
+    final message = error.getProperty('message'.toJS);
+    if (message is JSString) return message.toDart;
+  }
+  return error.toString();
 }
 
 CoreOAuth getOAuthConfig(Config config) => WebOAuth(config);
